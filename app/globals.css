@@ -1,0 +1,353 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: 0 0% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --popover: 0 0% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 142.1 70.6% 45.3%;
+  --primary-foreground: 144.9 80.4% 10%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 0 0% 14.9%;
+  --muted-foreground: 0 0% 63.9%;
+  --accent: 142.1 70.6% 45.3%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --ring: 142.4 71.8% 29.2%;
+  --radius: 0.5rem;
+  --neon: 142.1 70.6% 45.3%;
+}
+
+body {
+  @apply bg-background text-foreground;
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+}
+
+@layer components {
+  .glitch-overlay {
+    @apply absolute inset-0 bg-background opacity-90;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+
+  .grid-overlay {
+    @apply absolute inset-0 opacity-20;
+    background-image: linear-gradient(to right, hsl(var(--neon) / 0.2) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--neon) / 0.2) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .neon-glow {
+    box-shadow: 0 0 10px hsl(var(--neon) / 0.5), 0 0 20px hsl(var(--neon) / 0.3);
+  }
+
+  .glow-box {
+    box-shadow: 0 0 15px hsl(var(--neon) / 0.5);
+  }
+
+  .glitch-text {
+    text-shadow: 0 0 5px hsl(var(--neon) / 0.8), 0 0 10px hsl(var(--neon) / 0.4);
+    position: relative;
+  }
+
+  .glitch-heading {
+    text-shadow: 0 0 5px hsl(var(--neon) / 0.8), 0 0 10px hsl(var(--neon) / 0.4);
+    position: relative;
+  }
+
+  .glitch-heading::before,
+  .glitch-heading::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+  }
+
+  .glitch-heading::before {
+    left: 2px;
+    text-shadow: -1px 0 red;
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+  }
+
+  .glitch-heading::after {
+    left: -2px;
+    text-shadow: 2px 0 blue;
+    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+  }
+
+  .news-scroll::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .news-scroll::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+
+  .news-scroll::-webkit-scrollbar-thumb {
+    background: hsl(var(--neon) / 0.3);
+    border-radius: 4px;
+  }
+
+  .news-scroll::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--neon) / 0.5);
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-scroll {
+    animation: scroll 20s linear infinite;
+  }
+
+  .easter-egg:hover {
+    animation: pulse 1s infinite;
+  }
+
+  /* Hero section styles */
+  .hero-gradient {
+    @apply absolute inset-0;
+    background: radial-gradient(circle at center, hsl(var(--neon) / 0.15) 0%, transparent 50%);
+  }
+
+  .hero-noise {
+    @apply absolute inset-0 opacity-30;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    @apply absolute inset-0 opacity-20;
+    background-image: radial-gradient(circle at center, hsl(var(--neon) / 0.1) 1px, transparent 1px),
+      linear-gradient(to right, hsl(var(--neon) / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--neon) / 0.05) 1px, transparent 1px);
+    background-size: 50px 50px, 25px 25px, 25px 25px;
+    background-position: center;
+    pointer-events: none;
+  }
+
+  .floating-element {
+    @apply flex items-center opacity-80 hover:opacity-100 transition-opacity;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .token-node {
+    @apply flex items-center gap-2;
+  }
+
+  .token-icon {
+    @apply flex items-center justify-center w-8 h-8 rounded-full border border-neon/30 bg-background/50 backdrop-blur-sm;
+    box-shadow: 0 0 10px hsl(var(--neon) / 0.3);
+  }
+
+  .token-info {
+    @apply flex flex-col items-start;
+  }
+
+  .token-name {
+    @apply text-sm font-medium text-neon;
+  }
+
+  .token-value {
+    @apply text-xs text-muted-foreground;
+  }
+
+  .network-lines {
+    @apply opacity-30 pointer-events-none;
+  }
+
+  .network-line {
+    @apply stroke-neon stroke-1;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: dash 3s ease-in-out forwards;
+  }
+
+  .vertical-lines {
+    @apply absolute bottom-0 left-0 right-0 flex justify-center pointer-events-none;
+  }
+
+  .vertical-line {
+    position: absolute;
+    bottom: 0;
+    width: 1px;
+    background-color: hsl(var(--neon) / 0.3);
+    animation: grow-up 2s ease-out forwards;
+  }
+
+  .glow-pill {
+    @apply relative;
+  }
+
+  .glow-pill::before {
+    content: "";
+    @apply absolute inset-0 rounded-full blur-md -z-10;
+    background-color: hsl(var(--neon) / 0.3);
+    transform: scale(1.1);
+  }
+
+  .neon-heading {
+    @apply relative;
+    text-shadow: 0 0 5px hsl(var(--neon) / 0.3);
+  }
+
+  .glow-text {
+    text-shadow: 0 0 10px hsl(var(--neon) / 0.8), 0 0 20px hsl(var(--neon) / 0.4), 0 0 30px hsl(var(--neon) / 0.2);
+  }
+
+  .glow-button {
+    @apply relative px-8 py-3 rounded-md text-background font-medium overflow-hidden;
+    background: hsl(var(--neon));
+    box-shadow: 0 0 15px hsl(var(--neon) / 0.5), 0 0 30px hsl(var(--neon) / 0.3);
+  }
+
+  .glow-button::before {
+    content: "";
+    @apply absolute inset-0 opacity-30;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+    transform: translateX(-100%);
+    animation: shimmer 3s infinite;
+  }
+
+  .outline-button {
+    @apply px-8 py-3 rounded-md border border-neon/50 text-white font-medium transition-colors;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+  }
+
+  .outline-button:hover {
+    @apply border-neon bg-neon/10;
+  }
+
+  .play-button {
+    @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
+           w-16 h-16 rounded-full flex items-center justify-center cursor-pointer
+           border border-neon/30 bg-background/30 backdrop-blur-md;
+    box-shadow: 0 0 20px hsl(var(--neon) / 0.3);
+  }
+
+  .play-icon {
+    @apply text-neon text-xl;
+  }
+
+  .scroll-indicator {
+    @apply flex flex-col items-center gap-2 text-muted-foreground hover:text-neon transition-colors cursor-pointer;
+  }
+
+  .scroll-text {
+    @apply text-xs font-medium;
+  }
+
+  .scroll-arrow {
+    @apply text-neon animate-bounce;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes glitch-anim-1 {
+  0% {
+    clip-path: inset(20% 0 80% 0);
+  }
+  20% {
+    clip-path: inset(60% 0 40% 0);
+  }
+  40% {
+    clip-path: inset(40% 0 60% 0);
+  }
+  60% {
+    clip-path: inset(80% 0 20% 0);
+  }
+  80% {
+    clip-path: inset(10% 0 90% 0);
+  }
+  100% {
+    clip-path: inset(30% 0 70% 0);
+  }
+}
+
+@keyframes glitch-anim-2 {
+  0% {
+    clip-path: inset(10% 0 90% 0);
+  }
+  20% {
+    clip-path: inset(30% 0 70% 0);
+  }
+  40% {
+    clip-path: inset(50% 0 50% 0);
+  }
+  60% {
+    clip-path: inset(70% 0 30% 0);
+  }
+  80% {
+    clip-path: inset(90% 0 10% 0);
+  }
+  100% {
+    clip-path: inset(20% 0 80% 0);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes grow-up {
+  from {
+    height: 0;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}

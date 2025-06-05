@@ -1,0 +1,455 @@
+"use client"
+
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import {
+  Twitter,
+  MessageSquare,
+  ExternalLink,
+  Send,
+  Zap,
+  Scroll,
+  BookOpen,
+  Gamepad2,
+  Award,
+  Vote,
+  Lock,
+  DollarSign,
+} from "lucide-react"
+import { cn } from "@/lib/utils"
+import ParticleBackground from "@/components/particle-background"
+import NewsFeed from "@/components/news-feed"
+import WaitlistForm from "@/components/waitlist-form"
+import { useState } from "react"
+
+export default function Home() {
+  const [isWaitlistOpen, setIsWaitlistOpen] = useState(false)
+
+  const handleJoinCult = () => {
+    setIsWaitlistOpen(true)
+  }
+
+  return (
+    <div className="min-h-screen bg-background text-foreground overflow-hidden">
+      {/* Navbar */}
+      <header className="fixed top-0 left-0 right-0 z-50 border-b border-neon/20 backdrop-blur-md bg-background/80">
+        <div className="container flex items-center justify-between h-16">
+          <Link href="/" className="flex items-center gap-2">
+            <span className="font-bold text-2xl text-neon glitch-text">Peyaji</span>
+          </Link>
+          <nav className="hidden md:flex items-center gap-6">
+            <Link href="#what" className="text-sm hover:text-neon transition-colors">
+              What is Peyaji?
+            </Link>
+            <Link href="#token" className="text-sm hover:text-neon transition-colors">
+              $PEY Token
+            </Link>
+            <Link href="/tokenomics" className="text-sm hover:text-neon transition-colors">
+              Tokenomics
+            </Link>
+            <Link href="#peyper" className="text-sm hover:text-neon transition-colors">
+              Daily Peyper
+            </Link>
+            <Link href="#earn" className="text-sm hover:text-neon transition-colors">
+              Earn
+            </Link>
+            <Link href="#roadmap" className="text-sm hover:text-neon transition-colors">
+              Roadmap
+            </Link>
+          </nav>
+          <Button
+            onClick={() => setIsWaitlistOpen(true)}
+            className="bg-neon hover:bg-neon/80 text-background font-medium"
+          >
+            Join Waitlist
+          </Button>
+        </div>
+      </header>
+
+      <main>
+        {/* Hero Section */}
+        <section className="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden" id="hero">
+          <div className="absolute inset-0 z-0">
+            <div className="hero-gradient"></div>
+            <ParticleBackground />
+            <div className="hero-noise"></div>
+            <div className="hero-grid"></div>
+
+            {/* Vertical lines */}
+            <div className="vertical-lines">
+              <div className="vertical-line" style={{ left: "45%", height: "30%", animationDelay: "0s" }}></div>
+              <div className="vertical-line" style={{ left: "48%", height: "40%", animationDelay: "0.2s" }}></div>
+              <div className="vertical-line" style={{ left: "52%", height: "35%", animationDelay: "0.4s" }}></div>
+              <div className="vertical-line" style={{ left: "55%", height: "25%", animationDelay: "0.6s" }}></div>
+            </div>
+          </div>
+
+          <div className="container relative z-10 flex flex-col items-center text-center gap-8 py-20">
+            <div className="glow-pill">
+              <div className="inline-block px-6 py-2 rounded-full border border-neon text-neon text-sm font-medium">
+                The Incentive Layer on Web3
+              </div>
+            </div>
+
+            <div className="max-w-5xl mx-auto">
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tight neon-heading">
+                One-click for <span className="text-neon glow-text">Content Culture</span>
+              </h1>
+              <p className="mt-6 text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
+                Dive into the art of memes, where innovative blockchain technology meets content creation expertise
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 mt-8">
+              <Link href="https://peyaji.gitbook.io/peyaji/" target="_blank" rel="noopener noreferrer">
+                <button className="outline-button">
+                  <span>Discover More</span>
+                </button>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* What is Peyaji? */}
+        <section className="py-24 relative" id="what">
+          <div className="container">
+            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+              <span className="text-neon">What is</span> Peyaji?
+            </h2>
+
+            <Tabs defaultValue="about" className="max-w-3xl mx-auto">
+              <TabsList className="grid w-full grid-cols-1 h-auto bg-background/20 border border-neon/20">
+                <TabsTrigger
+                  value="about"
+                  className="data-[state=active]:bg-neon data-[state=active]:text-background py-3"
+                >
+                  The Cult
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent
+                value="about"
+                className="mt-6 p-6 border border-neon/20 rounded-lg bg-background/20 backdrop-blur-sm"
+              >
+                <p className="text-xl leading-relaxed">
+                  Peyaji isn't just a coin. It's the start of the memefication of media. A chaotic media cult built by
+                  degens, for degens.
+                </p>
+                <div className="mt-6 p-4 border-l-4 border-neon bg-neon/5 rounded-r-lg">
+                  <p className="text-xl font-medium italic">
+                    We don't do press releases. We do <span className="text-neon">spress</span>.
+                  </p>
+                </div>
+              </TabsContent>
+            </Tabs>
+          </div>
+        </section>
+
+        {/* $PEY Token Utility */}
+        <section className="py-24 relative" id="token">
+          <div className="container">
+            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+              <span className="text-neon">$PEY</span> Token Utility
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {[
+                {
+                  icon: <DollarSign className="h-10 w-10" />,
+                  title: "Tip writers and meme lords",
+                  description: "Reward the best content creators directly with $PEY tokens",
+                },
+                {
+                  icon: <Lock className="h-10 w-10" />,
+                  title: "Unlock gated content",
+                  description: "Access exclusive content only available to $PEY holders",
+                },
+                {
+                  icon: <Vote className="h-10 w-10" />,
+                  title: "Vote on Daily Peyper headlines",
+                  description: "Shape the narrative with your governance power",
+                },
+                {
+                  icon: <MessageSquare className="h-10 w-10" />,
+                  title: "Access VIP Discords or alpha drops",
+                  description: "Join exclusive communities and get early access",
+                },
+                {
+                  icon: <Award className="h-10 w-10" />,
+                  title: "Stake for rewards",
+                  description: "Earn passive income and future governance rights",
+                },
+                {
+                  icon: <Zap className="h-10 w-10" />,
+                  title: "Power the ecosystem",
+                  description: "Fuel the incentive layer of Web3 content",
+                },
+              ].map((item, i) => (
+                <div
+                  key={i}
+                  className="border border-neon/20 rounded-lg p-6 bg-background/20 backdrop-blur-sm hover:border-neon transition-all group"
+                >
+                  <div className="text-neon mb-4 group-hover:scale-110 transition-transform">{item.icon}</div>
+                  <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                  <p className="text-muted-foreground">{item.description}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-12 text-center">
+              <Link href="/tokenomics">
+                <Button variant="outline" className="border-neon text-neon hover:bg-neon hover:text-background">
+                  View Full Tokenomics
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* The Daily Peyper */}
+        <section className="py-24 relative" id="peyper">
+          <div className="container">
+            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+              The <span className="text-neon">Daily Peyper</span>
+            </h2>
+
+            <div className="max-w-4xl mx-auto border border-neon/20 rounded-lg overflow-hidden">
+              <div className="border-b border-neon/20 bg-neon/5 p-4 flex justify-between items-center">
+                <h3 className="font-bold text-neon">BREAKING MEMES</h3>
+                <Link
+                  href="https://thedailypeyper.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-muted-foreground hover:text-neon transition-colors"
+                >
+                  Visit thedailypeyper.com
+                </Link>
+              </div>
+
+              <NewsFeed />
+            </div>
+
+            <div className="mt-12 text-center">
+              <Button className="bg-neon hover:bg-neon/80 text-background">Write to Earn</Button>
+              <p className="mt-4 text-muted-foreground">
+                Community-run news, spicy takes, on-chain drama coverage, and Degen Digest.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Earn Features */}
+        <section className="py-24 relative" id="earn">
+          <div className="container">
+            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+              <span className="text-neon">Earn</span> Features
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {[
+                {
+                  icon: <Scroll className="h-12 w-12" />,
+                  title: "Scroll-to-Earn",
+                  description:
+                    "Users will be rewarded for simply scrolling through Peyper issues or ecosystem content.",
+                },
+                {
+                  icon: <Gamepad2 className="h-12 w-12" />,
+                  title: "Play-to-Earn",
+                  description: "Meme-based click games or on-chain mini-games will let players farm PAY or XP.",
+                },
+                {
+                  icon: <BookOpen className="h-12 w-12" />,
+                  title: "Read-to-Earn",
+                  description:
+                    "Users will earn $PAY tokens or XP for reading and engaging with content on the Daily Peyper platform.",
+                },
+              ].map((item, i) => (
+                <div
+                  key={i}
+                  className="border border-neon rounded-lg p-6 bg-background/20 backdrop-blur-sm relative overflow-hidden group"
+                >
+                  <div className="absolute top-0 right-0 bg-neon text-background px-3 py-1 text-xs font-bold">
+                    COMING SOON
+                  </div>
+
+                  <div className="text-neon mb-6 mt-4 flex justify-center group-hover:scale-110 transition-transform">
+                    {item.icon}
+                  </div>
+
+                  <h3 className="text-xl font-bold mb-4 text-center">{item.title}</h3>
+                  <p className="text-muted-foreground text-center">{item.description}</p>
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-20"></div>
+                  <div className="absolute inset-0 border border-neon opacity-0 group-hover:opacity-100 transition-opacity rounded-lg glow-box"></div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-12 text-center">
+              <Button onClick={() => setIsWaitlistOpen(true)} className="bg-neon hover:bg-neon/80 text-background">
+                Join Early. Be the First to Earn.
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* Roadmap */}
+        <section className="py-24 relative" id="roadmap">
+          <div className="container">
+            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+              <span className="text-neon">Road</span>map
+            </h2>
+
+            <div className="max-w-5xl mx-auto relative">
+              {/* Horizontal line */}
+              <div className="absolute top-1/2 left-0 w-full h-0.5 bg-neon/30"></div>
+
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                {[
+                  {
+                    quarter: "Q1",
+                    items: [
+                      "Private fundraising + community build",
+                      "First PAY token tests",
+                      "Telegram cult initiation",
+                    ],
+                  },
+                  {
+                    quarter: "Q2",
+                    items: ["Launch Daily Peyper", "Distribute early contributor PAY", "Stealth partner drops"],
+                  },
+                  {
+                    quarter: "Q3",
+                    items: [
+                      "Rollout Scroll-to-Earn & Read-to-Earn beta",
+                      "Mini-games for Play-to-Earn",
+                      "Meme bounty system",
+                    ],
+                  },
+                  {
+                    quarter: "Q4",
+                    items: ["Staking + DAO proposals", "NFTs for contributors", "Global memelord leaderboard"],
+                  },
+                ].map((item, i) => (
+                  <div key={i} className="relative pt-8">
+                    {/* Circle marker */}
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-background border-2 border-neon flex items-center justify-center z-10">
+                      <div className="w-3 h-3 rounded-full bg-neon"></div>
+                    </div>
+
+                    <div
+                      className={cn(
+                        "border border-neon/20 rounded-lg p-6 bg-background/20 backdrop-blur-sm mt-6",
+                        "hover:border-neon transition-all group",
+                      )}
+                    >
+                      <h3 className="text-xl font-bold mb-4 text-neon text-center">{item.quarter}</h3>
+                      <ul className="space-y-2">
+                        {item.items.map((text, j) => (
+                          <li key={j} className="flex items-start gap-2">
+                            <span className="text-neon mt-1">•</span>
+                            <span>{text}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Community */}
+        <section className="py-24 relative" id="community">
+          <div className="container">
+            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+              <span className="text-neon">Comm</span>unity
+            </h2>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 max-w-4xl mx-auto">
+              {[
+                { icon: <Twitter className="h-6 w-6" />, label: "Twitter/X", href: "https://x.com/peyajixyz" },
+                { icon: <ExternalLink className="h-6 w-6" />, label: "Farcaster", href: "#", soon: true },
+                { icon: <ExternalLink className="h-6 w-6" />, label: "Mirror", href: "#", soon: true },
+                { icon: <ExternalLink className="h-6 w-6" />, label: "Guild.xyz", href: "#", soon: true },
+                { icon: <Send className="h-6 w-6" />, label: "Telegram", href: "https://t.me/thedailypeyper" },
+                { icon: <MessageSquare className="h-6 w-6" />, label: "Discord", href: "#", soon: true },
+              ].map((item, i) => (
+                <Link
+                  key={i}
+                  href={item.href}
+                  target={item.href.startsWith("http") ? "_blank" : undefined}
+                  rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className={cn(
+                    "border border-neon/20 rounded-lg p-4 flex flex-col items-center justify-center gap-2 text-center",
+                    "hover:border-neon hover:bg-neon/5 transition-all group h-32",
+                    item.soon && "opacity-70",
+                  )}
+                >
+                  <div className="text-neon group-hover:scale-125 transition-transform">{item.icon}</div>
+                  <span className="font-medium">{item.label}</span>
+                  {item.soon && <span className="text-xs text-neon">Coming Soon</span>}
+                </Link>
+              ))}
+            </div>
+
+            <div className="mt-16 max-w-5xl mx-auto overflow-hidden">
+              <div className="meme-wall">
+                {/* This would be populated with actual meme images */}
+                <div className="flex animate-scroll">
+                  {Array(10)
+                    .fill(0)
+                    .map((_, i) => (
+                      <div
+                        key={i}
+                        className="w-48 h-48 flex-shrink-0 mx-2 bg-neon/5 border border-neon/20 rounded-lg flex items-center justify-center"
+                      >
+                        <span className="text-neon text-4xl font-bold">MEME</span>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      {/* Footer */}
+      <footer className="border-t border-neon/20 py-8">
+        <div className="container">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-muted-foreground text-sm">
+              Built by mirchi, memes, and degens. <span className="text-neon">#PoweredByPAY</span>
+            </p>
+
+            <div className="flex items-center gap-4">
+              <Link href="/terms" className="text-sm text-muted-foreground hover:text-neon">
+                Terms
+              </Link>
+              <Link href="/privacy" className="text-sm text-muted-foreground hover:text-neon">
+                Privacy
+              </Link>
+              <Link
+                href="https://peyaji.gitbook.io/peyaji/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-muted-foreground hover:text-neon"
+              >
+                Docs
+              </Link>
+              <div
+                className="w-2 h-2 bg-neon rounded-full cursor-pointer easter-egg"
+                onClick={() => alert("You found the alpha leak: $PEY to $100 confirmed")}
+              ></div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      {/* Waitlist Modal */}
+      <WaitlistForm isOpen={isWaitlistOpen} onClose={() => setIsWaitlistOpen(false)} />
+    </div>
+  )
+}
