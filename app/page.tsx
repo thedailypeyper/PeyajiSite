@@ -2,7 +2,6 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   Twitter,
   MessageSquare,
@@ -36,7 +35,7 @@ export default function Home() {
       <header className="fixed top-0 left-0 right-0 z-50 border-b border-neon/20 backdrop-blur-md bg-background/80">
         <div className="container flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2">
-            <span className="font-bold text-2xl text-neon glitch-text">Peyaji</span>
+            <span className="font-bold text-2xl text-neon glitch-text">PEYAJI</span>
           </Link>
           <nav className="hidden md:flex items-center gap-6">
             <Link href="#what" className="text-sm hover:text-neon transition-colors">
@@ -94,10 +93,10 @@ export default function Home() {
 
             <div className="max-w-5xl mx-auto">
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight tracking-tight neon-heading">
-                One-click for <span className="text-neon glow-text">Content Culture</span>
+                Where Every <span className="text-neon glow-text">Click Pays</span>
               </h1>
               <p className="mt-6 text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
-                Dive into the art of memes, where innovative blockchain technology meets content creation expertise
+                Memes, news, games, and social - all powered by blockchain incentives.
               </p>
             </div>
 
@@ -118,30 +117,27 @@ export default function Home() {
               <span className="text-neon">What is</span> Peyaji?
             </h2>
 
-            <Tabs defaultValue="about" className="max-w-3xl mx-auto">
-              <TabsList className="grid w-full grid-cols-1 h-auto bg-background/20 border border-neon/20">
-                <TabsTrigger
-                  value="about"
-                  className="data-[state=active]:bg-neon data-[state=active]:text-background py-3"
-                >
-                  The Cult
-                </TabsTrigger>
-              </TabsList>
-              <TabsContent
-                value="about"
-                className="mt-6 p-6 border border-neon/20 rounded-lg bg-background/20 backdrop-blur-sm"
-              >
-                <p className="text-xl leading-relaxed">
-                  Peyaji isn't just a coin. It's the start of the memefication of media. A chaotic media cult built by
-                  degens, for degens.
-                </p>
-                <div className="mt-6 p-4 border-l-4 border-neon bg-neon/5 rounded-r-lg">
-                  <p className="text-xl font-medium italic">
-                    We don't do press releases. We do <span className="text-neon">spress</span>.
+            <div className="max-w-4xl mx-auto">
+              <div className="p-8 border border-neon/20 rounded-lg bg-background/20 backdrop-blur-sm">
+                <div className="space-y-6 text-lg leading-relaxed">
+                  <p>
+                    Peyaji is the engine behind a new kind of internet - one where memes matter, articles pay, and
+                    content isn't just consumed, it's rewarded.
                   </p>
+                  <p>
+                    We're turning passive attention into active value, using the PEY token to power a network of apps
+                    that actually give back.
+                  </p>
+                  <p>No corporate media. No pointless engagement.</p>
+                  <p>Just real people, earning real tokens, for doing what they already love.</p>
+                  <div className="mt-8 p-4 border-l-4 border-neon bg-neon/5 rounded-r-lg">
+                    <p className="text-xl font-medium italic text-neon">
+                      It's a chaotic cult built by degens - for the rest of the world.
+                    </p>
+                  </div>
                 </div>
-              </TabsContent>
-            </Tabs>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -230,7 +226,9 @@ export default function Home() {
             </div>
 
             <div className="mt-12 text-center">
-              <Button className="bg-neon hover:bg-neon/80 text-background">Write to Earn</Button>
+              <Link href="https://thedailypeyper.com/" target="_blank" rel="noopener noreferrer">
+                <Button className="bg-neon hover:bg-neon/80 text-background">Explore</Button>
+              </Link>
               <p className="mt-4 text-muted-foreground">
                 Community-run news, spicy takes, on-chain drama coverage, and Degen Digest.
               </p>
@@ -256,13 +254,13 @@ export default function Home() {
                 {
                   icon: <Gamepad2 className="h-12 w-12" />,
                   title: "Play-to-Earn",
-                  description: "Meme-based click games or on-chain mini-games will let players farm PAY or XP.",
+                  description: "Meme-based click games or on-chain mini-games will let players farm PEY or XP.",
                 },
                 {
                   icon: <BookOpen className="h-12 w-12" />,
                   title: "Read-to-Earn",
                   description:
-                    "Users will earn $PAY tokens or XP for reading and engaging with content on the Daily Peyper platform.",
+                    "Users will earn $PEY tokens or XP for reading and engaging with content on the Daily Peyper platform.",
                 },
               ].map((item, i) => (
                 <div
@@ -311,13 +309,13 @@ export default function Home() {
                     quarter: "Q1",
                     items: [
                       "Private fundraising + community build",
-                      "First PAY token tests",
+                      "First PEY token tests",
                       "Telegram cult initiation",
                     ],
                   },
                   {
                     quarter: "Q2",
-                    items: ["Launch Daily Peyper", "Distribute early contributor PAY", "Stealth partner drops"],
+                    items: ["Launch Daily Peyper", "Distribute early contributor PEY", "Stealth partner drops"],
                   },
                   {
                     quarter: "Q3",
@@ -421,7 +419,7 @@ export default function Home() {
         <div className="container">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-muted-foreground text-sm">
-              Built by mirchi, memes, and degens. <span className="text-neon">#PoweredByPAY</span>
+              Built by mirchi, memes, and degens. <span className="text-neon">#PoweredByPEY</span>
             </p>
 
             <div className="flex items-center gap-4">

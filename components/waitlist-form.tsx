@@ -31,28 +31,8 @@ export default function WaitlistForm({ isOpen, onClose }: WaitlistFormProps) {
     }
 
     try {
-      // Get referrer information
-      const referrer = document.referrer || window.location.pathname
-
-      const response = await fetch("/api/waitlist", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, referrer }),
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to join waitlist")
-      }
-
-      if (data.success === false) {
-        setError(data.message || "This email is already registered")
-        setIsSubmitting(false)
-        return
-      }
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1000))
 
       setIsSubmitted(true)
       setEmail("")

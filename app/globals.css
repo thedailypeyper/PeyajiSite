@@ -9,21 +9,21 @@
   --card-foreground: 0 0% 98%;
   --popover: 0 0% 3.9%;
   --popover-foreground: 0 0% 98%;
-  --primary: 142.1 70.6% 45.3%;
+  --primary: 84 96% 50%;
   --primary-foreground: 144.9 80.4% 10%;
   --secondary: 240 3.7% 15.9%;
   --secondary-foreground: 0 0% 98%;
   --muted: 0 0% 14.9%;
   --muted-foreground: 0 0% 63.9%;
-  --accent: 142.1 70.6% 45.3%;
+  --accent: 84 96% 50%;
   --accent-foreground: 0 0% 98%;
   --destructive: 0 62.8% 30.6%;
   --destructive-foreground: 0 0% 98%;
   --border: 240 3.7% 15.9%;
   --input: 240 3.7% 15.9%;
-  --ring: 142.4 71.8% 29.2%;
+  --ring: 84 96% 50%;
   --radius: 0.5rem;
-  --neon: 142.1 70.6% 45.3%;
+  --neon: 84 96% 50%;
 }
 
 body {
@@ -241,8 +241,8 @@ body {
 
   .play-button {
     @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
-           w-16 h-16 rounded-full flex items-center justify-center cursor-pointer
-           border border-neon/30 bg-background/30 backdrop-blur-md;
+          w-16 h-16 rounded-full flex items-center justify-center cursor-pointer
+          border border-neon/30 bg-background/30 backdrop-blur-md;
     box-shadow: 0 0 20px hsl(var(--neon) / 0.3);
   }
 

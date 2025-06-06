@@ -6,8 +6,11 @@ import { ThemeProvider } from "@/components/theme-provider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "Peyaji - The Incentive Layer on Web3",
+  title: "PEYAJI - The Incentive Layer on Web3",
   description: "A crypto-native content and culture ecosystem powered by the $PEY token.",
+  icons: {
+    icon: "/favicon.ico",
+  },
     generator: 'v0.dev'
 }
 

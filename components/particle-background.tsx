@@ -51,7 +51,7 @@ export default function ParticleBackground() {
           speedX: (Math.random() - 0.5) * 0.5,
           speedY: (Math.random() - 0.5) * 0.5,
           opacity: Math.random() * 0.5 + 0.2,
-          color: `hsla(142, 70%, ${40 + Math.random() * 20}%, ${Math.random() * 0.5 + 0.3})`,
+          color: `hsla(84, 96%, 50%, ${Math.random() * 0.5 + 0.3})`, // Using the new green color
         })
       }
     }
@@ -100,7 +100,7 @@ export default function ParticleBackground() {
 
           if (distance < 100) {
             ctx.beginPath()
-            ctx.strokeStyle = `hsla(142, 70%, 50%, ${0.1 * (1 - distance / 100)})`
+            ctx.strokeStyle = `hsla(84, 96%, 50%, ${0.1 * (1 - distance / 100)})`
             ctx.lineWidth = 0.5
             ctx.moveTo(particle.x, particle.y)
             ctx.lineTo(otherParticle.x, otherParticle.y)
