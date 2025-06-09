@@ -102,9 +102,12 @@ export default function Home() {
 
             <div className="flex flex-col sm:flex-row gap-4 mt-8">
               <Link href="https://peyaji.gitbook.io/peyaji/" target="_blank" rel="noopener noreferrer">
-                <button className="outline-button">
-                  <span>Discover More</span>
-                </button>
+                <Button
+                  variant="outline"
+                  className="border-neon text-neon hover:bg-neon hover:text-background px-8 py-3"
+                >
+                  Discover More
+                </Button>
               </Link>
             </div>
           </div>
@@ -152,33 +155,34 @@ export default function Home() {
               {[
                 {
                   icon: <DollarSign className="h-10 w-10" />,
-                  title: "Tip writers and meme lords",
-                  description: "Reward the best content creators directly with $PEY tokens",
+                  title: "Earn from your Attention",
+                  description: "Read the news, scroll reels, or play games — get rewarded just for showing up.",
                 },
                 {
                   icon: <Lock className="h-10 w-10" />,
-                  title: "Unlock gated content",
-                  description: "Access exclusive content only available to $PEY holders",
+                  title: "Stake to Level Up",
+                  description: "Lock in your tokens to unlock bonus rewards and future perks across the ecosystem..",
                 },
                 {
                   icon: <Vote className="h-10 w-10" />,
-                  title: "Vote on Daily Peyper headlines",
-                  description: "Shape the narrative with your governance power",
+                  title: "Power the Ecosystem",
+                  description: "Every scroll, tap, and play helps fuel rewards and platform incentives.",
                 },
                 {
                   icon: <MessageSquare className="h-10 w-10" />,
-                  title: "Access VIP Discords or alpha drops",
-                  description: "Join exclusive communities and get early access",
+                  title: "Support your Favorite Creators",
+                  description:
+                    "Tip writers, memers, and video creators directly - because good content deserves more than likes.",
                 },
                 {
                   icon: <Award className="h-10 w-10" />,
-                  title: "Stake for rewards",
-                  description: "Earn passive income and future governance rights",
+                  title: "Spend in the Real World",
+                  description: "From Amazon to Domino's to flights and hotels - and eventually, even UPI payments.😉 ",
                 },
                 {
                   icon: <Zap className="h-10 w-10" />,
-                  title: "Power the ecosystem",
-                  description: "Fuel the incentive layer of Web3 content",
+                  title: "Collect surprise Drops",
+                  description: "Get random rewards, seasonal bonuses, or limited-time loot just for being active.",
                 },
               ].map((item, i) => (
                 <div
@@ -249,18 +253,18 @@ export default function Home() {
                   icon: <Scroll className="h-12 w-12" />,
                   title: "Scroll-to-Earn",
                   description:
-                    "Users will be rewarded for simply scrolling through Peyper issues or ecosystem content.",
+                    "Earn just by doing what you already do - swipe through reels, memes, or posts and watch your wallet stack up.",
                 },
                 {
                   icon: <Gamepad2 className="h-12 w-12" />,
                   title: "Play-to-Earn",
-                  description: "Meme-based click games or on-chain mini-games will let players farm PEY or XP.",
+                  description: "The kind of games you play on the toilet - but this time, it actually leads somewhere.",
                 },
                 {
                   icon: <BookOpen className="h-12 w-12" />,
                   title: "Read-to-Earn",
                   description:
-                    "Users will earn $PEY tokens or XP for reading and engaging with content on the Daily Peyper platform.",
+                    "Dig into spicy takes, news bites, or blogs on The Daily Peyper and get rewarded for staying informed..",
                 },
               ].map((item, i) => (
                 <div

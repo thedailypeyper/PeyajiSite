@@ -12,6 +12,12 @@ interface WaitlistFormProps {
   onClose: () => void
 }
 
+interface WaitlistEntry {
+  id: string
+  email: string
+  timestamp: Date
+}
+
 export default function WaitlistForm({ isOpen, onClose }: WaitlistFormProps) {
   const [email, setEmail] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -31,8 +37,41 @@ export default function WaitlistForm({ isOpen, onClose }: WaitlistFormProps) {
     }
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      // Get existing emails from localStorage
+      const existingEmails = localStorage.getItem("peyaji-waitlist")
+      let emailList: WaitlistEntry[] = []
+
+      if (existingEmails) {
+        emailList = JSON.parse(existingEmails)
+      }
+
+      // Check if email already exists
+      const emailExists = emailList.some((entry) => entry.email.toLowerCase() === email.toLowerCase())
+      if (emailExists) {
+        setError("This email is already registered!")
+        setIsSubmitting(false)
+        return
+      }
+
+      // Add new email
+      const newEntry: WaitlistEntry = {
+        id: Math.random().toString(36).substr(2, 9),
+        email: email.toLowerCase(),
+        timestamp: new Date(),
+      }
+
+      emailList.push(newEntry)
+
+      // Save to localStorage
+      localStorage.setItem("peyaji-waitlist", JSON.stringify(emailList))
+
+      // Also send to a webhook or external service (optional)
+      try {
+        // You can add webhook integration here
+        // await fetch('your-webhook-url', { method: 'POST', body: JSON.stringify(newEntry) })
+      } catch (webhookError) {
+        console.log("Webhook failed, but email saved locally:", webhookError)
+      }
 
       setIsSubmitted(true)
       setEmail("")
