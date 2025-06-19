@@ -5,7 +5,7 @@ import type React from "react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { X, Mail, CheckCircle } from "lucide-react"
+import { X, Mail, CheckCircle, AlertCircle } from "lucide-react"
 
 interface WaitlistFormProps {
   isOpen: boolean
@@ -17,11 +17,13 @@ export default function WaitlistForm({ isOpen, onClose }: WaitlistFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [error, setError] = useState("")
+  const [debugInfo, setDebugInfo] = useState("")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
     setError("")
+    setDebugInfo("")
 
     // Basic email validation
     if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
@@ -31,6 +33,8 @@ export default function WaitlistForm({ isOpen, onClose }: WaitlistFormProps) {
     }
 
     try {
+      console.log("🔄 Submitting email to waitlist:", email)
+
       const response = await fetch("/api/waitlist", {
         method: "POST",
         headers: {
@@ -39,20 +43,35 @@ export default function WaitlistForm({ isOpen, onClose }: WaitlistFormProps) {
         body: JSON.stringify({ email }),
       })
 
-      const data = await response.json()
+      console.log("📡 Response status:", response.status)
 
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to join waitlist")
+      let data
+      try {
+        data = await response.json()
+        console.log("📄 Response data:", data)
+      } catch (parseError) {
+        console.error("❌ Failed to parse response:", parseError)
+        throw new Error("Invalid server response")
       }
 
+      if (!response.ok) {
+        console.error("❌ Server error:", data)
+        setDebugInfo(`Status: ${response.status}, Details: ${data.details || "No details"}`)
+        throw new Error(data.error || `Server error (${response.status})`)
+      }
+
+      console.log("✅ Waitlist signup successful")
       setIsSubmitted(true)
       setEmail("")
-
-      // Track successful signup
-      console.log("Waitlist signup successful:", data)
     } catch (err) {
-      console.error("Waitlist error:", err)
-      setError(err instanceof Error ? err.message : "Failed to join waitlist. Please try again.")
+      console.error("❌ Waitlist submission error:", err)
+      const errorMessage = err instanceof Error ? err.message : "Failed to join waitlist. Please try again."
+      setError(errorMessage)
+
+      // Show debug info in development
+      if (process.env.NODE_ENV === "development") {
+        setDebugInfo(`Error: ${errorMessage}`)
+      }
     } finally {
       setIsSubmitting(false)
     }
@@ -94,7 +113,15 @@ export default function WaitlistForm({ isOpen, onClose }: WaitlistFormProps) {
                 />
               </div>
 
-              {error && <p className="text-red-500 text-sm">{error}</p>}
+              {error && (
+                <div className="p-3 border border-red-500/20 rounded-lg bg-red-500/5">
+                  <div className="flex items-center gap-2">
+                    <AlertCircle className="h-4 w-4 text-red-500" />
+                    <p className="text-red-500 text-sm">{error}</p>
+                  </div>
+                  {debugInfo && <p className="text-xs text-red-400 mt-2 font-mono">{debugInfo}</p>}
+                </div>
+              )}
 
               <Button
                 type="submit"

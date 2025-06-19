@@ -5,51 +5,58 @@ if (!process.env.MONGODB_URI) {
 }
 
 const uri = process.env.MONGODB_URI
+console.log("🔄 MongoDB URI configured:", uri ? "✅ Present" : "❌ Missing")
+
 const options = {
-  maxPoolSize: 10, // Maintain up to 10 socket connections
-  serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
-  socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
+  maxPoolSize: 10,
+  serverSelectionTimeoutMS: 5000,
+  socketTimeoutMS: 45000,
 }
 
 let client: MongoClient
 let clientPromise: Promise<MongoClient>
 
 if (process.env.NODE_ENV === "development") {
-  // In development mode, use a global variable so that the value
-  // is preserved across module reloads caused by HMR (Hot Module Replacement).
   const globalWithMongo = global as typeof globalThis & {
     _mongoClientPromise?: Promise<MongoClient>
   }
 
   if (!globalWithMongo._mongoClientPromise) {
+    console.log("🔄 Creating new MongoDB client (development)")
     client = new MongoClient(uri, options)
     globalWithMongo._mongoClientPromise = client.connect()
   }
   clientPromise = globalWithMongo._mongoClientPromise
 } else {
-  // In production mode, it's best to not use a global variable.
+  console.log("🔄 Creating new MongoDB client (production)")
   client = new MongoClient(uri, options)
   clientPromise = client.connect()
 }
 
-// Export a module-scoped MongoClient promise. By doing this in a
-// separate module, the client can be shared across functions.
 export default clientPromise
 
 export async function getDatabase(): Promise<Db> {
-  const client = await clientPromise
-  return client.db("peyaji")
+  try {
+    console.log("🔄 Getting database connection...")
+    const client = await clientPromise
+    const db = client.db("peyaji")
+    console.log("✅ Database connection established")
+    return db
+  } catch (error) {
+    console.error("❌ Database connection error:", error)
+    throw error
+  }
 }
 
-// Test connection function
 export async function testConnection() {
   try {
+    console.log("🔄 Testing MongoDB connection...")
     const client = await clientPromise
     await client.db("admin").command({ ping: 1 })
-    console.log("✅ MongoDB connection successful!")
+    console.log("✅ MongoDB connection test successful!")
     return true
   } catch (error) {
-    console.error("❌ MongoDB connection failed:", error)
+    console.error("❌ MongoDB connection test failed:", error)
     return false
   }
 }

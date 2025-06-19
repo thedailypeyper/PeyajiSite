@@ -212,7 +212,7 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
               The <span className="text-neon">Daily Peyper</span>
             </h2>
-
+/*
             <div className="max-w-4xl mx-auto border border-neon/20 rounded-lg overflow-hidden">
               <div className="border-b border-neon/20 bg-neon/5 p-4 flex justify-between items-center">
                 <h3 className="font-bold text-neon">BREAKING MEMES</h3>
@@ -228,7 +228,7 @@ export default function Home() {
 
               <NewsFeed />
             </div>
-
+*/
             <div className="mt-12 text-center">
               <Link href="https://thedailypeyper.com/" target="_blank" rel="noopener noreferrer">
                 <Button className="bg-neon hover:bg-neon/80 text-background">Explore</Button>
