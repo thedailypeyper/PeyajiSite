@@ -18,7 +18,6 @@ import {
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import ParticleBackground from "@/components/particle-background"
-import NewsFeed from "@/components/news-feed"
 import WaitlistForm from "@/components/waitlist-form"
 import { useState } from "react"
 
@@ -161,7 +160,7 @@ export default function Home() {
                 {
                   icon: <Lock className="h-10 w-10" />,
                   title: "Stake to Level Up",
-                  description: "Lock in your tokens to unlock bonus rewards and future perks across the ecosystem..",
+                  description: "Lock in your tokens to unlock bonus rewards and future perks across the ecosystem.",
                 },
                 {
                   icon: <Vote className="h-10 w-10" />,
@@ -177,7 +176,7 @@ export default function Home() {
                 {
                   icon: <Award className="h-10 w-10" />,
                   title: "Spend in the Real World",
-                  description: "From Amazon to Domino's to flights and hotels - and eventually, even UPI payments.😉 ",
+                  description: "From Amazon to Domino's to flights and hotels - and eventually, even UPI payments.😉",
                 },
                 {
                   icon: <Zap className="h-10 w-10" />,
@@ -212,23 +211,6 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
               The <span className="text-neon">Daily Peyper</span>
             </h2>
-/*
-            <div className="max-w-4xl mx-auto border border-neon/20 rounded-lg overflow-hidden">
-              <div className="border-b border-neon/20 bg-neon/5 p-4 flex justify-between items-center">
-                <h3 className="font-bold text-neon">BREAKING MEMES</h3>
-                <Link
-                  href="https://thedailypeyper.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-muted-foreground hover:text-neon transition-colors"
-                >
-                  Visit thedailypeyper.com
-                </Link>
-              </div>
-
-              <NewsFeed />
-            </div>
-*/
             <div className="mt-12 text-center">
               <Link href="https://thedailypeyper.com/" target="_blank" rel="noopener noreferrer">
                 <Button className="bg-neon hover:bg-neon/80 text-background">Explore</Button>
@@ -264,7 +246,7 @@ export default function Home() {
                   icon: <BookOpen className="h-12 w-12" />,
                   title: "Read-to-Earn",
                   description:
-                    "Dig into spicy takes, news bites, or blogs on The Daily Peyper and get rewarded for staying informed..",
+                    "Dig into spicy takes, news bites, or blogs on The Daily Peyper and get rewarded for staying informed.",
                 },
               ].map((item, i) => (
                 <div
