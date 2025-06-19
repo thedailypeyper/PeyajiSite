@@ -2,23 +2,53 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
-import { ArrowLeft, Download, Mail, Users, Calendar } from "lucide-react"
+import { ArrowLeft, Download, Mail, Users, Calendar, RefreshCw, Database, CheckCircle, XCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 interface WaitlistEntry {
   id: string
   email: string
-  timestamp: Date
+  timestamp: string
+  source?: string
+  ipAddress?: string
+}
+
+interface WaitlistStats {
+  total: number
+  last24Hours: number
+  last7Days: number
 }
 
 export default function AdminPage() {
   const [password, setPassword] = useState("")
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [emails, setEmails] = useState<WaitlistEntry[]>([])
+  const [stats, setStats] = useState<WaitlistStats>({ total: 0, last24Hours: 0, last7Days: 0 })
   const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [dbStatus, setDbStatus] = useState<"unknown" | "connected" | "failed">("unknown")
+
+  // Test database connection
+  const testDatabase = async () => {
+    try {
+      const response = await fetch("/api/test-db")
+      const data = await response.json()
+      setDbStatus(data.success ? "connected" : "failed")
+      if (!data.success) {
+        setError(`Database connection failed: ${data.message}`)
+      }
+    } catch (err) {
+      setDbStatus("failed")
+      setError("Failed to test database connection")
+    }
+  }
+
+  useEffect(() => {
+    testDatabase()
+  }, [])
 
   // Simple password check
   const handleLogin = (e: React.FormEvent) => {
@@ -31,25 +61,35 @@ export default function AdminPage() {
     }
   }
 
-  const loadEmails = () => {
-    // Load emails from localStorage
-    const storedEmails = localStorage.getItem("peyaji-waitlist")
-    if (storedEmails) {
-      try {
-        const parsed = JSON.parse(storedEmails)
-        setEmails(parsed)
-      } catch (err) {
-        console.error("Error parsing stored emails:", err)
+  const loadEmails = async () => {
+    setLoading(true)
+    try {
+      const response = await fetch("/api/waitlist?admin=peyaji-admin-2025")
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.details || errorData.error || "Failed to fetch emails")
       }
+
+      const data = await response.json()
+      setEmails(data.emails || [])
+      setStats(data.stats || { total: 0, last24Hours: 0, last7Days: 0 })
+      setError("")
+      setDbStatus("connected")
+    } catch (err) {
+      console.error("Error loading emails:", err)
+      setError(`Failed to load emails: ${err instanceof Error ? err.message : "Unknown error"}`)
+      setDbStatus("failed")
+    } finally {
+      setLoading(false)
     }
   }
 
   const exportEmails = () => {
     const csvContent = [
-      "Email,Date,Time",
+      "Email,Date,Time,Source,IP Address",
       ...emails.map((entry) => {
         const date = new Date(entry.timestamp)
-        return `${entry.email},${date.toLocaleDateString()},${date.toLocaleTimeString()}`
+        return `${entry.email},${date.toLocaleDateString()},${date.toLocaleTimeString()},${entry.source || "website"},${entry.ipAddress || "unknown"}`
       }),
     ].join("\n")
 
@@ -64,13 +104,6 @@ export default function AdminPage() {
     window.URL.revokeObjectURL(url)
   }
 
-  const clearEmails = () => {
-    if (confirm("Are you sure you want to clear all emails? This cannot be undone.")) {
-      localStorage.removeItem("peyaji-waitlist")
-      setEmails([])
-    }
-  }
-
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-background text-foreground flex items-center justify-center">
@@ -79,6 +112,32 @@ export default function AdminPage() {
             <h1 className="text-2xl font-bold mb-6 text-center">
               <span className="text-neon">PEYAJI</span> Admin
             </h1>
+
+            {/* Database Status */}
+            <div className="mb-6 p-3 rounded-lg border border-neon/20 bg-background/10">
+              <div className="flex items-center gap-2">
+                <Database className="h-4 w-4" />
+                <span className="text-sm font-medium">Database Status:</span>
+                {dbStatus === "connected" && (
+                  <>
+                    <CheckCircle className="h-4 w-4 text-green-500" />
+                    <span className="text-green-500 text-sm">Connected</span>
+                  </>
+                )}
+                {dbStatus === "failed" && (
+                  <>
+                    <XCircle className="h-4 w-4 text-red-500" />
+                    <span className="text-red-500 text-sm">Failed</span>
+                  </>
+                )}
+                {dbStatus === "unknown" && (
+                  <>
+                    <RefreshCw className="h-4 w-4 text-yellow-500 animate-spin" />
+                    <span className="text-yellow-500 text-sm">Testing...</span>
+                  </>
+                )}
+              </div>
+            </div>
 
             <form onSubmit={handleLogin} className="space-y-4">
               <div>
@@ -98,7 +157,11 @@ export default function AdminPage() {
 
               {error && <p className="text-red-500 text-sm">{error}</p>}
 
-              <Button type="submit" className="w-full bg-neon hover:bg-neon/80 text-background">
+              <Button
+                type="submit"
+                className="w-full bg-neon hover:bg-neon/80 text-background"
+                disabled={dbStatus === "failed"}
+              >
                 Login
               </Button>
             </form>
@@ -126,16 +189,23 @@ export default function AdminPage() {
           <h1 className="text-2xl font-bold">
             <span className="text-neon">PEYAJI</span> Admin Dashboard
           </h1>
-          <Button
-            onClick={() => {
-              setIsAuthenticated(false)
-              setPassword("")
-            }}
-            variant="outline"
-            className="border-neon/20 text-muted-foreground hover:text-neon"
-          >
-            Logout
-          </Button>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              {dbStatus === "connected" && <CheckCircle className="h-4 w-4 text-green-500" />}
+              {dbStatus === "failed" && <XCircle className="h-4 w-4 text-red-500" />}
+              <span className="text-sm text-muted-foreground">MongoDB</span>
+            </div>
+            <Button
+              onClick={() => {
+                setIsAuthenticated(false)
+                setPassword("")
+              }}
+              variant="outline"
+              className="border-neon/20 text-muted-foreground hover:text-neon"
+            >
+              Logout
+            </Button>
+          </div>
         </div>
       </header>
 
@@ -147,7 +217,7 @@ export default function AdminPage() {
               <div className="flex items-center gap-3">
                 <Users className="h-8 w-8 text-neon" />
                 <div>
-                  <p className="text-2xl font-bold">{emails.length}</p>
+                  <p className="text-2xl font-bold">{stats.total}</p>
                   <p className="text-muted-foreground">Total Signups</p>
                 </div>
               </div>
@@ -157,9 +227,7 @@ export default function AdminPage() {
               <div className="flex items-center gap-3">
                 <Calendar className="h-8 w-8 text-neon" />
                 <div>
-                  <p className="text-2xl font-bold">
-                    {emails.filter((e) => new Date(e.timestamp) > new Date(Date.now() - 24 * 60 * 60 * 1000)).length}
-                  </p>
+                  <p className="text-2xl font-bold">{stats.last24Hours}</p>
                   <p className="text-muted-foreground">Last 24 Hours</p>
                 </div>
               </div>
@@ -169,12 +237,7 @@ export default function AdminPage() {
               <div className="flex items-center gap-3">
                 <Mail className="h-8 w-8 text-neon" />
                 <div>
-                  <p className="text-2xl font-bold">
-                    {
-                      emails.filter((e) => new Date(e.timestamp) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000))
-                        .length
-                    }
-                  </p>
+                  <p className="text-2xl font-bold">{stats.last7Days}</p>
                   <p className="text-muted-foreground">Last 7 Days</p>
                 </div>
               </div>
@@ -183,45 +246,84 @@ export default function AdminPage() {
 
           {/* Actions */}
           <div className="flex flex-wrap gap-4 mb-8">
-            <Button onClick={exportEmails} className="bg-neon hover:bg-neon/80 text-background">
+            <Button
+              onClick={exportEmails}
+              className="bg-neon hover:bg-neon/80 text-background"
+              disabled={emails.length === 0}
+            >
               <Download className="h-4 w-4 mr-2" />
               Export CSV
             </Button>
-            <Button onClick={loadEmails} variant="outline" className="border-neon text-neon hover:bg-neon/10">
-              Refresh Data
+            <Button
+              onClick={loadEmails}
+              variant="outline"
+              className="border-neon text-neon hover:bg-neon/10"
+              disabled={loading}
+            >
+              <RefreshCw className={`h-4 w-4 mr-2 ${loading ? "animate-spin" : ""}`} />
+              {loading ? "Loading..." : "Refresh Data"}
             </Button>
-            <Button onClick={clearEmails} variant="outline" className="border-red-500 text-red-500 hover:bg-red-500/10">
-              Clear All
+            <Button
+              onClick={testDatabase}
+              variant="outline"
+              className="border-neon/20 text-muted-foreground hover:text-neon"
+            >
+              <Database className="h-4 w-4 mr-2" />
+              Test DB Connection
             </Button>
           </div>
+
+          {error && (
+            <div className="mb-6 p-4 border border-red-500/20 rounded-lg bg-red-500/5">
+              <p className="text-red-500">{error}</p>
+            </div>
+          )}
 
           {/* Email List */}
           <div className="border border-neon/20 rounded-lg bg-background/20 backdrop-blur-sm">
             <div className="p-6 border-b border-neon/20">
-              <h2 className="text-xl font-bold">Waitlist Emails</h2>
+              <h2 className="text-xl font-bold">Waitlist Emails ({stats.total})</h2>
             </div>
 
             <div className="p-6">
-              {emails.length === 0 ? (
+              {loading ? (
+                <div className="text-center py-8">
+                  <RefreshCw className="h-8 w-8 text-neon animate-spin mx-auto mb-2" />
+                  <p className="text-muted-foreground">Loading emails from MongoDB...</p>
+                </div>
+              ) : emails.length === 0 ? (
                 <p className="text-center text-muted-foreground py-8">No emails collected yet.</p>
               ) : (
                 <div className="space-y-4">
-                  {emails
-                    .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
-                    .map((entry) => (
-                      <div
-                        key={entry.id}
-                        className="flex items-center justify-between p-4 border border-neon/10 rounded-lg bg-background/10"
-                      >
-                        <div className="flex items-center gap-3">
-                          <Mail className="h-5 w-5 text-neon" />
+                  {emails.map((entry) => (
+                    <div
+                      key={entry.id}
+                      className="flex items-center justify-between p-4 border border-neon/10 rounded-lg bg-background/10"
+                    >
+                      <div className="flex items-center gap-3">
+                        <Mail className="h-5 w-5 text-neon" />
+                        <div>
                           <span className="font-medium">{entry.email}</span>
-                        </div>
-                        <div className="text-sm text-muted-foreground">
-                          {new Date(entry.timestamp).toLocaleString()}
+                          <div className="flex gap-2 mt-1">
+                            {entry.source && (
+                              <span className="text-xs px-2 py-1 rounded-full bg-neon/10 text-neon">
+                                {entry.source}
+                              </span>
+                            )}
+                            {entry.ipAddress && entry.ipAddress !== "unknown" && (
+                              <span className="text-xs px-2 py-1 rounded-full bg-blue-500/10 text-blue-400">
+                                {entry.ipAddress}
+                              </span>
+                            )}
+                          </div>
                         </div>
                       </div>
-                    ))}
+                      <div className="text-sm text-muted-foreground text-right">
+                        <div>{new Date(entry.timestamp).toLocaleDateString()}</div>
+                        <div>{new Date(entry.timestamp).toLocaleTimeString()}</div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               )}
             </div>

@@ -12,12 +12,6 @@ interface WaitlistFormProps {
   onClose: () => void
 }
 
-interface WaitlistEntry {
-  id: string
-  email: string
-  timestamp: Date
-}
-
 export default function WaitlistForm({ isOpen, onClose }: WaitlistFormProps) {
   const [email, setEmail] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -37,47 +31,28 @@ export default function WaitlistForm({ isOpen, onClose }: WaitlistFormProps) {
     }
 
     try {
-      // Get existing emails from localStorage
-      const existingEmails = localStorage.getItem("peyaji-waitlist")
-      let emailList: WaitlistEntry[] = []
+      const response = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      })
 
-      if (existingEmails) {
-        emailList = JSON.parse(existingEmails)
-      }
+      const data = await response.json()
 
-      // Check if email already exists
-      const emailExists = emailList.some((entry) => entry.email.toLowerCase() === email.toLowerCase())
-      if (emailExists) {
-        setError("This email is already registered!")
-        setIsSubmitting(false)
-        return
-      }
-
-      // Add new email
-      const newEntry: WaitlistEntry = {
-        id: Math.random().toString(36).substr(2, 9),
-        email: email.toLowerCase(),
-        timestamp: new Date(),
-      }
-
-      emailList.push(newEntry)
-
-      // Save to localStorage
-      localStorage.setItem("peyaji-waitlist", JSON.stringify(emailList))
-
-      // Also send to a webhook or external service (optional)
-      try {
-        // You can add webhook integration here
-        // await fetch('your-webhook-url', { method: 'POST', body: JSON.stringify(newEntry) })
-      } catch (webhookError) {
-        console.log("Webhook failed, but email saved locally:", webhookError)
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to join waitlist")
       }
 
       setIsSubmitted(true)
       setEmail("")
+
+      // Track successful signup
+      console.log("Waitlist signup successful:", data)
     } catch (err) {
       console.error("Waitlist error:", err)
-      setError("Failed to join waitlist. Please try again.")
+      setError(err instanceof Error ? err.message : "Failed to join waitlist. Please try again.")
     } finally {
       setIsSubmitting(false)
     }
