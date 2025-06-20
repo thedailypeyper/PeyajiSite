@@ -18,14 +18,11 @@ import {
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import ParticleBackground from "@/components/particle-background"
-import WaitlistForm from "@/components/waitlist-form"
-import { useState } from "react"
+import NewsFeed from "@/components/news-feed"
 
 export default function Home() {
-  const [isWaitlistOpen, setIsWaitlistOpen] = useState(false)
-
-  const handleJoinCult = () => {
-    setIsWaitlistOpen(true)
+  const handleJoinWaitlist = () => {
+    window.open("https://app.youform.com/forms/uo2zni61", "_blank")
   }
 
   return (
@@ -56,10 +53,7 @@ export default function Home() {
               Roadmap
             </Link>
           </nav>
-          <Button
-            onClick={() => setIsWaitlistOpen(true)}
-            className="bg-neon hover:bg-neon/80 text-background font-medium"
-          >
+          <Button onClick={handleJoinWaitlist} className="bg-neon hover:bg-neon/80 text-background font-medium">
             Join Waitlist
           </Button>
         </div>
@@ -211,6 +205,7 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
               The <span className="text-neon">Daily Peyper</span>
             </h2>
+           
             <div className="mt-12 text-center">
               <Link href="https://thedailypeyper.com/" target="_blank" rel="noopener noreferrer">
                 <Button className="bg-neon hover:bg-neon/80 text-background">Explore</Button>
@@ -271,7 +266,7 @@ export default function Home() {
             </div>
 
             <div className="mt-12 text-center">
-              <Button onClick={() => setIsWaitlistOpen(true)} className="bg-neon hover:bg-neon/80 text-background">
+              <Button onClick={handleJoinWaitlist} className="bg-neon hover:bg-neon/80 text-background">
                 Join Early. Be the First to Earn.
               </Button>
             </div>
@@ -431,9 +426,6 @@ export default function Home() {
           </div>
         </div>
       </footer>
-
-      {/* Waitlist Modal */}
-      <WaitlistForm isOpen={isWaitlistOpen} onClose={() => setIsWaitlistOpen(false)} />
     </div>
   )
 }
