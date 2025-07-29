@@ -16,6 +16,9 @@ import {
   Vote,
   Lock,
   DollarSign,
+  ChevronUp,
+  Linkedin,
+  Instagram,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import ParticleBackground from "@/components/particle-background"
@@ -25,13 +28,24 @@ export default function Home() {
     window.open("https://app.youform.com/forms/uo2zni61", "_blank")
   }
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }
+
   return (
     <div className="min-h-screen bg-background text-foreground overflow-hidden">
       {/* Navbar */}
       <header className="fixed top-0 left-0 right-0 z-50 border-b border-neon/20 backdrop-blur-md bg-background/80">
         <div className="container flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center gap-2">
-            <span className="font-bold text-2xl text-neon glitch-text">PEYAJI</span>
+          <Link href="/" className="flex items-center gap-3">
+            <Image
+              src="/images/peyaji-logo.png"
+              alt="PEYAJI Logo"
+              width={32}
+              height={32}
+              className="w-8 h-8 object-contain"
+            />
+            <span className="peyaji-brand text-2xl text-neon glitch-text">PEYAJI</span>
           </Link>
           <nav className="hidden md:flex items-center gap-6">
             <Link href="#what" className="text-sm hover:text-neon transition-colors">
@@ -431,33 +445,202 @@ export default function Home() {
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-neon/20 py-8">
-        <div className="container">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-muted-foreground text-sm">
-              Built by mirchi, memes, and degens. <span className="text-neon">#PoweredByPEY</span>
-            </p>
+      {/* Modern Footer */}
+      <footer className="relative overflow-hidden bg-black">
+        {/* Subtle geometric patterns */}
+        <div className="absolute inset-0 opacity-5">
+          <svg className="w-full h-full" viewBox="0 0 1200 400" fill="none">
+            <path d="M0 200L200 100L400 250L600 50L800 200L1000 150L1200 100" stroke="#58f303" strokeWidth="1" />
+            <path d="M0 250L150 150L350 300L550 100L750 250L950 200L1200 150" stroke="#58f303" strokeWidth="1" />
+            <path d="M0 150L250 200L450 50L650 200L850 100L1050 250L1200 200" stroke="#58f303" strokeWidth="1" />
+          </svg>
+        </div>
 
-            <div className="flex items-center gap-4">
-              <Link href="/terms" className="text-sm text-muted-foreground hover:text-neon">
-                Terms
-              </Link>
-              <Link href="/privacy" className="text-sm text-muted-foreground hover:text-neon">
-                Privacy
-              </Link>
-              <Link
-                href="https://peyaji.gitbook.io/peyaji/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-muted-foreground hover:text-neon"
-              >
-                Docs
-              </Link>
-              <div
-                className="w-2 h-2 bg-neon rounded-full cursor-pointer easter-egg"
-                onClick={() => alert("You found the alpha leak: $PEY to $100 confirmed")}
-              ></div>
+        <div className="relative z-10">
+          {/* Main footer content */}
+          <div className="container py-16">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+              {/* Brand section */}
+              <div className="lg:col-span-1">
+                <div className="flex items-center gap-3 mb-6">
+                  <Image
+                    src="/images/peyaji-logo.png"
+                    alt="PEYAJI Logo"
+                    width={40}
+                    height={40}
+                    className="w-10 h-10 object-contain"
+                  />
+                  <span className="peyaji-brand text-2xl text-neon">PEYAJI</span>
+                </div>
+
+                <p className="text-muted-foreground mb-8 leading-relaxed">
+                  Empowering creators and communities with blockchain incentives to transform passive attention into
+                  active value across Web3.
+                </p>
+
+                {/* Social icons */}
+                <div className="flex gap-4 mb-8">
+                  <Link
+                    href="https://x.com/peyajixyz"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 border border-neon/20 rounded-lg flex items-center justify-center hover:border-neon hover:bg-neon/10 transition-all"
+                  >
+                    <Twitter className="h-5 w-5 text-neon" />
+                  </Link>
+                  <Link
+                    href="https://t.me/thedailypeyper"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 border border-neon/20 rounded-lg flex items-center justify-center hover:border-neon hover:bg-neon/10 transition-all"
+                  >
+                    <Send className="h-5 w-5 text-neon" />
+                  </Link>
+                  <div className="w-10 h-10 border border-neon/20 rounded-lg flex items-center justify-center opacity-50">
+                    <Linkedin className="h-5 w-5 text-muted-foreground" />
+                  </div>
+                  <div className="w-10 h-10 border border-neon/20 rounded-lg flex items-center justify-center opacity-50">
+                    <Instagram className="h-5 w-5 text-muted-foreground" />
+                  </div>
+                </div>
+
+                {/* Back to top button */}
+                <Button
+                  onClick={scrollToTop}
+                  variant="outline"
+                  className="border-neon/20 text-neon hover:bg-neon/10 hover:border-neon bg-transparent"
+                >
+                  <ChevronUp className="h-4 w-4 mr-2" />
+                  BACK TO TOP
+                </Button>
+              </div>
+
+              {/* Site Map */}
+              <div className="lg:col-span-1">
+                <h3 className="text-lg font-semibold mb-6 text-foreground">Site Map</h3>
+                <ul className="space-y-4">
+                  <li>
+                    <Link href="/" className="text-muted-foreground hover:text-neon transition-colors">
+                      Homepage
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="#what" className="text-muted-foreground hover:text-neon transition-colors">
+                      What is Peyaji?
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/tokenomics" className="text-muted-foreground hover:text-neon transition-colors">
+                      Tokenomics
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="#peyper" className="text-muted-foreground hover:text-neon transition-colors">
+                      Daily Peyper
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="#earn" className="text-muted-foreground hover:text-neon transition-colors">
+                      Earn Features
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="#roadmap" className="text-muted-foreground hover:text-neon transition-colors">
+                      Roadmap
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="#community" className="text-muted-foreground hover:text-neon transition-colors">
+                      Community
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Resources */}
+              <div className="lg:col-span-1">
+                <h3 className="text-lg font-semibold mb-6 text-foreground">Resources</h3>
+                <ul className="space-y-4">
+                  <li>
+                    <Link
+                      href="https://thedailypeyper.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-neon transition-colors"
+                    >
+                      The Daily Peyper
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="https://peyaji.gitbook.io/peyaji/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-neon transition-colors"
+                    >
+                      Documentation
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="https://peyaji.gitbook.io/peyaji/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-neon transition-colors"
+                    >
+                      Whitepaper
+                    </Link>
+                  </li>
+                  <li>
+                    <span className="text-muted-foreground/50">API (Coming Soon)</span>
+                  </li>
+                  <li>
+                    <span className="text-muted-foreground/50">Developer Portal (Coming Soon)</span>
+                  </li>
+                  <li>
+                    <span className="text-muted-foreground/50">Brand Kit (Coming Soon)</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Legal */}
+              <div className="lg:col-span-1">
+                <h3 className="text-lg font-semibold mb-6 text-foreground">Legal</h3>
+                <ul className="space-y-4">
+                  <li>
+                    <Link href="/privacy" className="text-muted-foreground hover:text-neon transition-colors">
+                      Privacy Policy
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/terms" className="text-muted-foreground hover:text-neon transition-colors">
+                      Terms of Service
+                    </Link>
+                  </li>
+                  <li>
+                    <span className="text-muted-foreground/50">Cookie Policy (Coming Soon)</span>
+                  </li>
+                  <li>
+                    <span className="text-muted-foreground/50">Disclaimer (Coming Soon)</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Copyright section - now integrated into black background */}
+          <div className="border-t border-neon/10 py-6">
+            <div className="container">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                <p className="text-muted-foreground text-sm">Copyright © 2025, peyaji.xyz. All Rights Reserved.</p>
+                <div className="flex items-center gap-4">
+                  <span className="text-neon text-sm font-medium">#PoweredByPEY</span>
+                  <div
+                    className="w-2 h-2 bg-neon rounded-full cursor-pointer hover:scale-125 transition-transform"
+                    onClick={() => alert("You found the alpha leak: $PEY to $100 confirmed")}
+                  ></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
