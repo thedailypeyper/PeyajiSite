@@ -23,7 +23,7 @@
   --input: 240 3.7% 15.9%;
   --ring: 84 96% 50%;
   --radius: 0.5rem;
-  --neon: 84 96% 50%;
+  --neon: #58f303;
 }
 
 body {
@@ -47,27 +47,27 @@ body {
 
   .grid-overlay {
     @apply absolute inset-0 opacity-20;
-    background-image: linear-gradient(to right, hsl(var(--neon) / 0.2) 1px, transparent 1px),
-      linear-gradient(to bottom, hsl(var(--neon) / 0.2) 1px, transparent 1px);
+    background-image: linear-gradient(to right, #58f303 1px, transparent 1px),
+      linear-gradient(to bottom, #58f303 1px, transparent 1px);
     background-size: 40px 40px;
     pointer-events: none;
   }
 
   .neon-glow {
-    box-shadow: 0 0 10px hsl(var(--neon) / 0.5), 0 0 20px hsl(var(--neon) / 0.3);
+    box-shadow: 0 0 10px rgba(88, 243, 3, 0.5), 0 0 20px rgba(88, 243, 3, 0.3);
   }
 
   .glow-box {
-    box-shadow: 0 0 15px hsl(var(--neon) / 0.5);
+    box-shadow: 0 0 15px rgba(88, 243, 3, 0.5);
   }
 
   .glitch-text {
-    text-shadow: 0 0 5px hsl(var(--neon) / 0.8), 0 0 10px hsl(var(--neon) / 0.4);
+    text-shadow: 0 0 5px rgba(88, 243, 3, 0.8), 0 0 10px rgba(88, 243, 3, 0.4);
     position: relative;
   }
 
   .glitch-heading {
-    text-shadow: 0 0 5px hsl(var(--neon) / 0.8), 0 0 10px hsl(var(--neon) / 0.4);
+    text-shadow: 0 0 5px rgba(88, 243, 3, 0.8), 0 0 10px rgba(88, 243, 3, 0.4);
     position: relative;
   }
 
@@ -103,12 +103,12 @@ body {
   }
 
   .news-scroll::-webkit-scrollbar-thumb {
-    background: hsl(var(--neon) / 0.3);
+    background: rgba(88, 243, 3, 0.3);
     border-radius: 4px;
   }
 
   .news-scroll::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--neon) / 0.5);
+    background: rgba(88, 243, 3, 0.5);
   }
 
   .animate-pulse-slow {
@@ -126,7 +126,7 @@ body {
   /* Hero section styles */
   .hero-gradient {
     @apply absolute inset-0;
-    background: radial-gradient(circle at center, hsl(var(--neon) / 0.15) 0%, transparent 50%);
+    background: radial-gradient(circle at center, rgba(88, 243, 3, 0.15) 0%, transparent 50%);
   }
 
   .hero-noise {
@@ -138,9 +138,9 @@ body {
 
   .hero-grid {
     @apply absolute inset-0 opacity-20;
-    background-image: radial-gradient(circle at center, hsl(var(--neon) / 0.1) 1px, transparent 1px),
-      linear-gradient(to right, hsl(var(--neon) / 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, hsl(var(--neon) / 0.05) 1px, transparent 1px);
+    background-image: radial-gradient(circle at center, rgba(88, 243, 3, 0.1) 1px, transparent 1px),
+      linear-gradient(to right, rgba(88, 243, 3, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(88, 243, 3, 0.05) 1px, transparent 1px);
     background-size: 50px 50px, 25px 25px, 25px 25px;
     background-position: center;
     pointer-events: none;
@@ -156,8 +156,9 @@ body {
   }
 
   .token-icon {
-    @apply flex items-center justify-center w-8 h-8 rounded-full border border-neon/30 bg-background/50 backdrop-blur-sm;
-    box-shadow: 0 0 10px hsl(var(--neon) / 0.3);
+    @apply flex items-center justify-center w-8 h-8 rounded-full border bg-background/50 backdrop-blur-sm;
+    border-color: rgba(88, 243, 3, 0.3);
+    box-shadow: 0 0 10px rgba(88, 243, 3, 0.3);
   }
 
   .token-info {
@@ -165,7 +166,8 @@ body {
   }
 
   .token-name {
-    @apply text-sm font-medium text-neon;
+    @apply text-sm font-medium;
+    color: #58f303;
   }
 
   .token-value {
@@ -177,7 +179,8 @@ body {
   }
 
   .network-line {
-    @apply stroke-neon stroke-1;
+    stroke: #58f303;
+    stroke-width: 1;
     stroke-dasharray: 100;
     stroke-dashoffset: 100;
     animation: dash 3s ease-in-out forwards;
@@ -191,7 +194,7 @@ body {
     position: absolute;
     bottom: 0;
     width: 1px;
-    background-color: hsl(var(--neon) / 0.3);
+    background-color: rgba(88, 243, 3, 0.3);
     animation: grow-up 2s ease-out forwards;
   }
 
@@ -202,23 +205,23 @@ body {
   .glow-pill::before {
     content: "";
     @apply absolute inset-0 rounded-full blur-md -z-10;
-    background-color: hsl(var(--neon) / 0.3);
+    background-color: rgba(88, 243, 3, 0.3);
     transform: scale(1.1);
   }
 
   .neon-heading {
     @apply relative;
-    text-shadow: 0 0 5px hsl(var(--neon) / 0.3);
+    text-shadow: 0 0 5px rgba(88, 243, 3, 0.3);
   }
 
   .glow-text {
-    text-shadow: 0 0 10px hsl(var(--neon) / 0.8), 0 0 20px hsl(var(--neon) / 0.4), 0 0 30px hsl(var(--neon) / 0.2);
+    text-shadow: 0 0 10px rgba(88, 243, 3, 0.8), 0 0 20px rgba(88, 243, 3, 0.4), 0 0 30px rgba(88, 243, 3, 0.2);
   }
 
   .glow-button {
     @apply relative px-8 py-3 rounded-md text-background font-medium overflow-hidden;
-    background: hsl(var(--neon));
-    box-shadow: 0 0 15px hsl(var(--neon) / 0.5), 0 0 30px hsl(var(--neon) / 0.3);
+    background: #58f303;
+    box-shadow: 0 0 15px rgba(88, 243, 3, 0.5), 0 0 30px rgba(88, 243, 3, 0.3);
   }
 
   .glow-button::before {
@@ -232,7 +235,7 @@ body {
   .outline-button {
     padding: 0.75rem 2rem;
     border-radius: 0.375rem;
-    border: 1px solid hsla(var(--neon), 0.5);
+    border: 1px solid rgba(88, 243, 3, 0.5);
     color: white;
     font-weight: 500;
     transition-property: color, background-color, border-color;
@@ -243,23 +246,29 @@ body {
   }
 
   .outline-button:hover {
-    border-color: hsl(var(--neon));
-    background-color: hsla(var(--neon), 0.1);
+    border-color: #58f303;
+    background-color: rgba(88, 243, 3, 0.1);
   }
 
   .play-button {
     @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
           w-16 h-16 rounded-full flex items-center justify-center cursor-pointer
-          border border-neon/30 bg-background/30 backdrop-blur-md;
-    box-shadow: 0 0 20px hsl(var(--neon) / 0.3);
+          border bg-background/30 backdrop-blur-md;
+    border-color: rgba(88, 243, 3, 0.3);
+    box-shadow: 0 0 20px rgba(88, 243, 3, 0.3);
   }
 
   .play-icon {
-    @apply text-neon text-xl;
+    @apply text-xl;
+    color: #58f303;
   }
 
   .scroll-indicator {
-    @apply flex flex-col items-center gap-2 text-muted-foreground hover:text-neon transition-colors cursor-pointer;
+    @apply flex flex-col items-center gap-2 text-muted-foreground transition-colors cursor-pointer;
+  }
+
+  .scroll-indicator:hover {
+    color: #58f303;
   }
 
   .scroll-text {
@@ -267,7 +276,8 @@ body {
   }
 
   .scroll-arrow {
-    @apply text-neon animate-bounce;
+    @apply animate-bounce;
+    color: #58f303;
   }
 }
 

@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import {
   Twitter,
@@ -18,7 +19,6 @@ import {
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import ParticleBackground from "@/components/particle-background"
-import NewsFeed from "@/components/news-feed"
 
 export default function Home() {
   const handleJoinWaitlist = () => {
@@ -97,7 +97,7 @@ export default function Home() {
               <Link href="https://peyaji.gitbook.io/peyaji/" target="_blank" rel="noopener noreferrer">
                 <Button
                   variant="outline"
-                  className="border-neon text-neon hover:bg-neon hover:text-background px-8 py-3"
+                  className="border-neon text-neon hover:bg-neon hover:text-background px-8 py-3 bg-transparent"
                 >
                   Discover More
                 </Button>
@@ -113,23 +113,56 @@ export default function Home() {
               <span className="text-neon">What is</span> Peyaji?
             </h2>
 
-            <div className="max-w-4xl mx-auto">
-              <div className="p-8 border border-neon/20 rounded-lg bg-background/20 backdrop-blur-sm">
-                <div className="space-y-6 text-lg leading-relaxed">
-                  <p>
-                    Peyaji is the engine behind a new kind of internet - one where memes matter, articles pay, and
-                    content isn't just consumed, it's rewarded.
-                  </p>
-                  <p>
-                    We're turning passive attention into active value, using the PEY token to power a network of apps
-                    that actually give back.
-                  </p>
-                  <p>No corporate media. No pointless engagement.</p>
-                  <p>Just real people, earning real tokens, for doing what they already love.</p>
-                  <div className="mt-8 p-4 border-l-4 border-neon bg-neon/5 rounded-r-lg">
-                    <p className="text-xl font-medium italic text-neon">
-                      It's a chaotic cult built by degens - for the rest of the world.
+            <div className="max-w-6xl mx-auto">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                {/* Content */}
+                <div className="p-8 border border-neon/20 rounded-lg bg-background/20 backdrop-blur-sm">
+                  <div className="space-y-6 text-lg leading-relaxed">
+                    <p>
+                      Peyaji is the engine behind a new kind of internet - one where memes matter, articles pay, and
+                      content isn't just consumed, it's rewarded.
                     </p>
+                    <p>
+                      We're turning passive attention into active value, using the PEY token to power a network of apps
+                      that actually give back.
+                    </p>
+                    <p>No corporate media. No pointless engagement.</p>
+                    <p>Just real people, earning real tokens, for doing what they already love.</p>
+                    <div className="mt-8 p-4 border-l-4 border-neon bg-neon/5 rounded-r-lg">
+                      <p className="text-xl font-medium italic text-neon">
+                        It's a chaotic cult built by degens - for the rest of the world.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Mascot */}
+                <div className="flex justify-center lg:justify-end">
+                  <div className="relative">
+                    {/* Glow effect behind mascot */}
+                    <div className="absolute inset-0 bg-neon/20 rounded-full blur-3xl scale-150"></div>
+
+                    {/* Mascot image */}
+                    <div className="relative z-10 transform hover:scale-105 transition-transform duration-300">
+                      <Image
+                        src="/images/pey-mascot.png"
+                        alt="PEY Mascot - The friendly green blockchain character"
+                        width={400}
+                        height={400}
+                        className="w-80 h-80 lg:w-96 lg:h-96 object-contain drop-shadow-2xl"
+                        priority
+                      />
+                    </div>
+
+                    {/* Floating text bubble */}
+                    <div className="absolute -top-4 -right-4 bg-neon text-background px-4 py-2 rounded-full text-sm font-bold animate-bounce">
+                      HEY YOU! 👋
+                    </div>
+
+                    {/* Decorative elements */}
+                    <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-neon rounded-full animate-pulse"></div>
+                    <div className="absolute -top-2 left-8 w-4 h-4 bg-neon/60 rounded-full animate-pulse delay-300"></div>
+                    <div className="absolute -right-2 top-1/3 w-3 h-3 bg-neon/40 rounded-full animate-pulse delay-700"></div>
                   </div>
                 </div>
               </div>
@@ -191,7 +224,10 @@ export default function Home() {
 
             <div className="mt-12 text-center">
               <Link href="/tokenomics">
-                <Button variant="outline" className="border-neon text-neon hover:bg-neon hover:text-background">
+                <Button
+                  variant="outline"
+                  className="border-neon text-neon hover:bg-neon hover:text-background bg-transparent"
+                >
                   View Full Tokenomics
                 </Button>
               </Link>
@@ -205,7 +241,7 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
               The <span className="text-neon">Daily Peyper</span>
             </h2>
-           
+
             <div className="mt-12 text-center">
               <Link href="https://thedailypeyper.com/" target="_blank" rel="noopener noreferrer">
                 <Button className="bg-neon hover:bg-neon/80 text-background">Explore</Button>
